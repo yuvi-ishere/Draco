@@ -1,0 +1,340 @@
+/* =========================================================
+   DRACO PANEL THEME — NEBULA GLASS EDITION (CLIENT PANEL)
+   ========================================================= */
+:root {
+    --draco-bg: #070911;
+    --draco-surface: rgba(16, 21, 35, 0.78);
+    --draco-surface-solid: #101523;
+    --draco-surface-strong: rgba(12, 16, 28, 0.92);
+    --draco-input: rgba(8, 11, 20, 0.88);
+    --draco-border: rgba(255, 255, 255, 0.08);
+    --draco-border-hover: rgba(139, 92, 246, 0.50);
+
+    /* Default Nebula Violet-Blue Accent */
+    --draco-accent: #8b5cf6;
+    --draco-accent-2: #3b82f6;
+    --draco-accent-soft: rgba(139, 92, 246, 0.18);
+    --draco-accent-glow: rgba(139, 92, 246, 0.32);
+
+    /* --- DRACO CRIMSON RED PRESET (Upar wale 4 replace karein) ---
+    --draco-accent: #ef4444;
+    --draco-accent-2: #f97316;
+    --draco-accent-soft: rgba(239, 68, 68, 0.18);
+    --draco-accent-glow: rgba(239, 68, 68, 0.34);
+    --draco-border-hover: rgba(239, 68, 68, 0.55);
+    ------------------------------------------------------------ */
+
+    --draco-text: #f3f4f6;
+    --draco-muted: #94a3b8;
+    --draco-radius: 14px;
+    --draco-sidebar-w: 228px;
+}
+
+/* Base Reset & Typography */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html, body, #app {
+    background-color: var(--draco-bg) !important;
+    color: var(--draco-text) !important;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Ambient Nebula Background Layer */
+.draco-ambient-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 12% 14%, var(--draco-accent-soft), transparent 42%),
+        radial-gradient(circle at 88% 84%, rgba(59, 130, 246, 0.14), transparent 44%),
+        radial-gradient(circle at 50% 45%, rgba(15, 23, 42, 0.35), transparent 70%);
+}
+
+#app > div {
+    position: relative;
+    z-index: 1;
+}
+
+/* === TOP FLOATING NAVIGATION BAR === */
+div[class*="NavigationBar"] {
+    position: sticky !important;
+    top: 10px !important;
+    margin: 10px 14px 0 14px !important;
+    width: calc(100% - 28px) !important;
+    background: var(--draco-surface-strong) !important;
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+    border: 1px solid var(--draco-border) !important;
+    border-radius: var(--draco-radius) !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45) !important;
+    z-index: 45 !important;
+}
+
+div[class*="NavigationBar"] a,
+div[class*="NavigationBar"] button {
+    color: var(--draco-muted) !important;
+    transition: color 0.2s ease, background 0.2s ease !important;
+}
+
+div[class*="NavigationBar"] a:hover,
+div[class*="NavigationBar"] button:hover,
+div[class*="NavigationBar"] a.active {
+    color: #ffffff !important;
+}
+
+/* === DESKTOP FLOATING LEFT SIDEBAR (>= 1024px) === */
+@media (min-width: 1024px) {
+    div[class*="SubNavigation"] {
+        position: fixed !important;
+        top: 84px !important;
+        left: 14px !important;
+        bottom: 14px !important;
+        width: var(--draco-sidebar-w) !important;
+        background: var(--draco-surface-strong) !important;
+        backdrop-filter: blur(18px) !important;
+        -webkit-backdrop-filter: blur(18px) !important;
+        border: 1px solid var(--draco-border) !important;
+        border-radius: 16px !important;
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.48) !important;
+        padding: 12px 10px !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        z-index: 35 !important;
+    }
+
+    div[class*="SubNavigation"] > div {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 5px !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+    }
+
+    div[class*="SubNavigation"] a {
+        display: flex !important;
+        align-items: center !important;
+        width: 100% !important;
+        padding: 10px 14px !important;
+        margin: 0 !important;
+        border-radius: 10px !important;
+        border: 1px solid transparent !important;
+        color: var(--draco-muted) !important;
+        font-size: 0.9rem !important;
+        font-weight: 500 !important;
+        white-space: nowrap !important;
+        transition: all 0.18s ease !important;
+    }
+
+    div[class*="SubNavigation"] a:hover {
+        background: rgba(255, 255, 255, 0.05) !important;
+        color: #ffffff !important;
+        transform: translateX(3px) !important;
+    }
+
+    div[class*="SubNavigation"] a.active,
+    div[class*="SubNavigation"] a[aria-current="page"] {
+        background: linear-gradient(135deg, var(--draco-accent-soft), rgba(59, 130, 246, 0.14)) !important;
+        color: #ffffff !important;
+        border-color: var(--draco-border-hover) !important;
+        box-shadow: 0 0 18px rgba(139, 92, 246, 0.22) !important;
+    }
+
+    /* Main Content Offset jab Sidebar screen par ho */
+    body:has(div[class*="SubNavigation"]) section,
+    body:has(div[class*="SubNavigation"]) div[class*="PageContentBlock"] {
+        margin-left: calc(var(--draco-sidebar-w) + 28px) !important;
+        margin-right: 16px !important;
+        max-width: calc(100% - var(--draco-sidebar-w) - 44px) !important;
+    }
+}
+
+/* === MOBILE & TABLET HORIZONTAL PILL BAR (< 1024px) === */
+@media (max-width: 1023px) {
+    div[class*="SubNavigation"] {
+        margin: 10px 14px 4px 14px !important;
+        padding: 6px 8px !important;
+        background: var(--draco-surface-strong) !important;
+        backdrop-filter: blur(14px) !important;
+        border: 1px solid var(--draco-border) !important;
+        border-radius: 12px !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    div[class*="SubNavigation"] > div {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        gap: 6px !important;
+    }
+
+    div[class*="SubNavigation"] a {
+        padding: 8px 12px !important;
+        border-radius: 8px !important;
+        border-bottom: none !important;
+        white-space: nowrap !important;
+        font-size: 0.85rem !important;
+    }
+
+    div[class*="SubNavigation"] a.active,
+    div[class*="SubNavigation"] a[aria-current="page"] {
+        background: var(--draco-accent-soft) !important;
+        color: #ffffff !important;
+        border: 1px solid var(--draco-border-hover) !important;
+    }
+}
+
+/* === CARDS, SERVER ROWS, MOD & PLUGIN BOXES === */
+a[class*="ServerRow"],
+div[class*="GreyRowBox"],
+div[class*="TitledGreyBox"],
+div[class*="ContentBox"],
+.bg-neutral-700,
+.bg-neutral-800,
+.bg-gray-700,
+.bg-gray-800 {
+    background: var(--draco-surface) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    border: 1px solid var(--draco-border) !important;
+    border-radius: var(--draco-radius) !important;
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.28) !important;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+a[class*="ServerRow"]:hover,
+div[class*="GreyRowBox"]:hover {
+    border-color: var(--draco-border-hover) !important;
+    box-shadow: 0 8px 28px var(--draco-accent-glow) !important;
+    transform: translateY(-2px) !important;
+}
+
+div[class*="TitledGreyBox"] > div:first-child {
+    background: rgba(7, 9, 17, 0.55) !important;
+    border-bottom: 1px solid var(--draco-border) !important;
+    border-radius: var(--draco-radius) var(--draco-radius) 0 0 !important;
+}
+
+/* === CONSOLE & FILE EDITOR (HIGH READABILITY) === */
+.xterm-viewport,
+div[class*="Console"],
+.bg-black {
+    background-color: #05070e !important;
+    border-radius: 12px !important;
+}
+
+.xterm, .xterm-rows, .CodeMirror, .ace_editor, code, pre {
+    font-family: 'JetBrains Mono', monospace !important;
+}
+
+.CodeMirror, .ace_editor {
+    background-color: #060811 !important;
+    border: 1px solid var(--draco-border) !important;
+    border-radius: 12px !important;
+}
+
+/* === MODALS, DIALOGS & DROPDOWNS (ZERO INVISIBLE TEXT) === */
+div[role="dialog"],
+div[class*="Modal"],
+div[class*="Dialog"] {
+    background: var(--draco-surface-solid) !important;
+    border: 1px solid var(--draco-border) !important;
+    border-radius: 16px !important;
+    color: var(--draco-text) !important;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.72) !important;
+}
+
+div[role="menu"],
+ul[role="listbox"] {
+    background: #0d1220 !important;
+    border: 1px solid var(--draco-border) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* === INPUTS, SEARCH BARS & SELECTS === */
+input:not([type="checkbox"]):not([type="radio"]),
+textarea,
+select {
+    background-color: var(--draco-input) !important;
+    border: 1px solid var(--draco-border) !important;
+    color: var(--draco-text) !important;
+    border-radius: 10px !important;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: var(--draco-accent) !important;
+    box-shadow: 0 0 0 2px var(--draco-accent-soft) !important;
+    outline: none !important;
+}
+
+/* === BUTTONS (Status/Danger Colors Preserved) === */
+button[type="submit"],
+.bg-primary-500,
+.bg-primary-600,
+.bg-blue-600,
+.bg-cyan-600 {
+    background: linear-gradient(135deg, var(--draco-accent), var(--draco-accent-2)) !important;
+    border: none !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    border-radius: 10px !important;
+    box-shadow: 0 4px 16px var(--draco-accent-glow) !important;
+    transition: transform 0.15s ease, filter 0.15s ease !important;
+}
+
+button[type="submit"]:hover,
+.bg-primary-500:hover,
+.bg-blue-600:hover {
+    filter: brightness(1.12) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* === LOGIN PAGE WITH DRACO BRANDING === */
+div[class*="LoginFormContainer"] {
+    position: relative;
+    background: var(--draco-surface-strong) !important;
+    backdrop-filter: blur(22px) !important;
+    border: 1px solid var(--draco-border) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 22px 60px rgba(0, 0, 0, 0.68) !important;
+    padding: 32px 28px !important;
+}
+
+div[class*="LoginFormContainer"]::before {
+    content: "DRACO PANEL";
+    display: block;
+    text-align: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    color: var(--draco-accent);
+    margin-bottom: 12px;
+}
+
+/* === SCROLLBAR & REDUCED MOTION === */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: var(--draco-bg);
+}
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--draco-accent), var(--draco-accent-2));
+    border-radius: 10px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        transition: none !important;
+        animation: none !important;
+    }
+}
