@@ -1,0 +1,7 @@
+draco-theme/
+├── conf.yml
+├── dashboard/
+│   ├── wrapper.blade.php
+│   └── dashboard.css
+└── admin/
+    └── wrapper.blade.php
