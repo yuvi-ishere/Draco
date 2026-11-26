@@ -6,7 +6,6 @@ use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\Factory as ViewFactory;
-use Prologue\Alerts\AlertsMessageBag;
 use Pterodactyl\Http\Controllers\Controller;
 use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
 
@@ -15,7 +14,6 @@ class dracoExtensionController extends Controller
     public function __construct(
         private ViewFactory $view,
         private SettingsRepositoryInterface $settings,
-        private AlertsMessageBag $alert,
     ) {}
 
     public static function defaults(): array
@@ -54,10 +52,33 @@ class dracoExtensionController extends Controller
         ];
     }
 
+    private function resolveBlueprint(): mixed
+    {
+        $candidates = [
+            '\\Pterodactyl\\BlueprintFramework\\Libraries\\ExtensionLibrary\\Admin\\BlueprintAdminLibrary',
+            '\\Pterodactyl\\BlueprintFramework\\Libraries\\ExtensionLibrary\\BlueprintExtensionLibrary',
+        ];
+        foreach ($candidates as$class) {
+            if (class_exists($class)) {
+                try {
+                    return app($class);
+                } catch (\Throwable $e) {
+                    // Fallback safely if container resolution fails
+                }
+            }
+        }
+        return null;
+    }
+
     private function getConfig(): array
     {
-        $raw = $this->settings->get('draco::config');$saved = is_string($raw) ? json_decode($raw, true) : [];
-        return array_merge(self::defaults(), is_array($saved) ?$saved : []);
+        $defaults = self::defaults();
+        try {
+            $raw = $this->settings->get('draco::config');$saved = is_string($raw) ? json_decode($raw, true) : [];
+            return array_merge($defaults, is_array($saved) ?$saved : []);
+        } catch (\Throwable $e) {
+            return $defaults;
+        }
     }
 
     private function cleanHex(?string $value, string$fallback): string
@@ -66,9 +87,21 @@ class dracoExtensionController extends Controller
         return preg_match('/^#[0-9a-fA-F]{6}$/',$v) ? $v :$fallback;
     }
 
+    private function flashSuccess(string $message): void
+    {
+        try {
+            if (class_exists('\\Prologue\\Alerts\\AlertsMessageBag')) {
+                app('\\Prologue\\Alerts\\AlertsMessageBag')->success($message)->flash();
+                return;
+            }
+        } catch (\Throwable $e) {}
+        session()->flash('draco_status', $message);
+    }
+
     public function index(): View
     {
         return $this->view->make('admin.extensions.draco.index', [
+            'blueprint'   => $this->resolveBlueprint(),
             'root'        => '/admin/extensions/draco',
             'dracoConfig' => $this->getConfig(),
         ]);
@@ -78,8 +111,8 @@ class dracoExtensionController extends Controller
     {
         $defaults = self::defaults();
 
-        if ($request->input('draco_action') === 'reset') {$this->settings->set('draco::config', json_encode($defaults));$this->alert->success('Draco theme reset to default settings!')->flash();
-            return redirect()->back();
+        if ($request->input('draco_action') === 'reset') {$this->settings->set('draco::config', json_encode($defaults));$this->flashSuccess('Draco theme default settings par reset ho gaya hai!');
+            return redirect('/admin/extensions/draco');
         }
 
         $config = [
@@ -109,12 +142,17 @@ class dracoExtensionController extends Controller
             'sync_admin'           => $request->has('sync_admin') ? 1 : 0, 'custom_css'           => (string)$request->input('custom_css', ''),
         ];
 
-        $this->settings->set('draco::config', json_encode($config));$this->alert->success('Draco theme settings saved successfully!')->flash();
+        $this->settings->set('draco::config', json_encode($config));$this->flashSuccess('Draco theme save ho gaya hai — sabhi servers par apply ho chuka hai!');
 
-        return redirect()->back();
+        return redirect('/admin/extensions/draco');
     }
 
     public function post(Request $request): RedirectResponse
+    {
+        return $this->update($request);
+    }
+
+    public function patch(Request $request): RedirectResponse
     {
         return $this->update($request);
     }
