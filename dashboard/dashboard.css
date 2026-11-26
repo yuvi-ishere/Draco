@@ -1,38 +1,23 @@
 /* =========================================================
-   DRACO PANEL THEME — NEBULA GLASS EDITION (CLIENT PANEL)
+   DRACO NEBULA v2 — REAL FLOATING SIDEBAR & GLASS UI
    ========================================================= */
 :root {
     --draco-bg: #070911;
-    --draco-surface: rgba(16, 21, 35, 0.78);
-    --draco-surface-solid: #101523;
-    --draco-surface-strong: rgba(12, 16, 28, 0.92);
-    --draco-input: rgba(8, 11, 20, 0.88);
+    --draco-surface: rgba(16, 20, 34, 0.76);
+    --draco-surface-deep: rgba(10, 13, 24, 0.88);
+    --draco-surface-solid: #0f1422;
     --draco-border: rgba(255, 255, 255, 0.08);
-    --draco-border-hover: rgba(139, 92, 246, 0.50);
+    --draco-border-glow: rgba(139, 92, 246, 0.50);
 
-    /* Default Nebula Violet-Blue Accent */
-    --draco-accent: #8b5cf6;
-    --draco-accent-2: #3b82f6;
+    --draco-accent: #8b5cf6;       /* Nebula Violet */
+    --draco-accent-2: #3b82f6;     /* Electric Blue */
     --draco-accent-soft: rgba(139, 92, 246, 0.18);
-    --draco-accent-glow: rgba(139, 92, 246, 0.32);
-
-    /* --- DRACO CRIMSON RED PRESET (Upar wale 4 replace karein) ---
-    --draco-accent: #ef4444;
-    --draco-accent-2: #f97316;
-    --draco-accent-soft: rgba(239, 68, 68, 0.18);
-    --draco-accent-glow: rgba(239, 68, 68, 0.34);
-    --draco-border-hover: rgba(239, 68, 68, 0.55);
-    ------------------------------------------------------------ */
+    --draco-accent-glow: rgba(139, 92, 246, 0.34);
 
     --draco-text: #f3f4f6;
     --draco-muted: #94a3b8;
     --draco-radius: 14px;
-    --draco-sidebar-w: 228px;
-}
-
-/* Base Reset & Typography */
-*, *::before, *::after {
-    box-sizing: border-box;
+    --draco-sidebar-w: 242px;
 }
 
 html, body, #app {
@@ -41,232 +26,303 @@ html, body, #app {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
     min-height: 100vh;
     overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
 }
 
-/* Ambient Nebula Background Layer */
+[data-draco="root-wrap"] {
+    background: transparent !important;
+}
+
+/* Ambient Nebula Glow */
 .draco-ambient-bg {
     position: fixed;
     inset: 0;
     z-index: 0;
     pointer-events: none;
     background:
-        radial-gradient(circle at 12% 14%, var(--draco-accent-soft), transparent 42%),
-        radial-gradient(circle at 88% 84%, rgba(59, 130, 246, 0.14), transparent 44%),
-        radial-gradient(circle at 50% 45%, rgba(15, 23, 42, 0.35), transparent 70%);
+        radial-gradient(circle at 12% 16%, rgba(139, 92, 246, 0.22), transparent 42%),
+        radial-gradient(circle at 88% 82%, rgba(59, 130, 246, 0.18), transparent 45%),
+        radial-gradient(circle at 50% 45%, rgba(15, 23, 42, 0.4), transparent 72%);
 }
 
-#app > div {
+#app {
     position: relative;
     z-index: 1;
 }
 
-/* === TOP FLOATING NAVIGATION BAR === */
-div[class*="NavigationBar"] {
+/* === FLOATING GLASS TOPBAR === */
+[data-draco="topbar"] {
     position: sticky !important;
-    top: 10px !important;
-    margin: 10px 14px 0 14px !important;
-    width: calc(100% - 28px) !important;
-    background: var(--draco-surface-strong) !important;
-    backdrop-filter: blur(18px) !important;
-    -webkit-backdrop-filter: blur(18px) !important;
+    top: 12px !important;
+    margin: 12px 16px 0 16px !important;
+    width: calc(100% - 32px) !important;
+    background: var(--draco-surface-deep) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
     border: 1px solid var(--draco-border) !important;
-    border-radius: var(--draco-radius) !important;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45) !important;
-    z-index: 45 !important;
+    border-radius: 16px !important;
+    box-shadow: 0 10px 34px rgba(0, 0, 0, 0.5) !important;
+    z-index: 50 !important;
 }
 
-div[class*="NavigationBar"] a,
-div[class*="NavigationBar"] button {
-    color: var(--draco-muted) !important;
-    transition: color 0.2s ease, background 0.2s ease !important;
-}
-
-div[class*="NavigationBar"] a:hover,
-div[class*="NavigationBar"] button:hover,
-div[class*="NavigationBar"] a.active {
+[data-draco="topbar"] #logo a {
+    font-weight: 700 !important;
+    letter-spacing: 0.04em !important;
     color: #ffffff !important;
 }
 
-/* === DESKTOP FLOATING LEFT SIDEBAR (>= 1024px) === */
+/* === NEBULA FLOATING LEFT SIDEBAR (DESKTOP) === */
 @media (min-width: 1024px) {
-    div[class*="SubNavigation"] {
+    [data-draco="sidebar"] {
         position: fixed !important;
-        top: 84px !important;
-        left: 14px !important;
-        bottom: 14px !important;
+        top: 86px !important;
+        left: 16px !important;
+        bottom: 16px !important;
         width: var(--draco-sidebar-w) !important;
-        background: var(--draco-surface-strong) !important;
-        backdrop-filter: blur(18px) !important;
-        -webkit-backdrop-filter: blur(18px) !important;
+        background: var(--draco-surface-deep) !important;
+        backdrop-filter: blur(22px) !important;
+        -webkit-backdrop-filter: blur(22px) !important;
         border: 1px solid var(--draco-border) !important;
-        border-radius: 16px !important;
-        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.48) !important;
-        padding: 12px 10px !important;
+        border-radius: 18px !important;
+        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.55) !important;
+        padding: 14px 10px !important;
         overflow-y: auto !important;
         overflow-x: hidden !important;
-        z-index: 35 !important;
+        z-index: 40 !important;
     }
 
-    div[class*="SubNavigation"] > div {
+    [data-draco="sidebar"]::before {
+        content: "DRACO NAVIGATION";
+        display: block;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        color: #64748b;
+        padding: 4px 12px 12px 12px;
+        margin-bottom: 6px;
+        border-bottom: 1px solid var(--draco-border);
+    }
+
+    [data-draco="sidebar-inner"] {
         display: flex !important;
         flex-direction: column !important;
         align-items: stretch !important;
         gap: 5px !important;
-        padding: 0 !important;
         max-width: 100% !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
     }
 
-    div[class*="SubNavigation"] a {
+    [data-draco="sidebar-inner"] > a {
         display: flex !important;
         align-items: center !important;
+        gap: 11px !important;
         width: 100% !important;
-        padding: 10px 14px !important;
+        padding: 11px 14px !important;
         margin: 0 !important;
-        border-radius: 10px !important;
+        border-radius: 11px !important;
         border: 1px solid transparent !important;
+        box-shadow: none !important;
         color: var(--draco-muted) !important;
         font-size: 0.9rem !important;
         font-weight: 500 !important;
-        white-space: nowrap !important;
+        text-decoration: none !important;
         transition: all 0.18s ease !important;
     }
 
-    div[class*="SubNavigation"] a:hover {
-        background: rgba(255, 255, 255, 0.05) !important;
+    [data-draco="sidebar-inner"] > a:hover {
+        background: rgba(255, 255, 255, 0.06) !important;
         color: #ffffff !important;
         transform: translateX(3px) !important;
     }
 
-    div[class*="SubNavigation"] a.active,
-    div[class*="SubNavigation"] a[aria-current="page"] {
-        background: linear-gradient(135deg, var(--draco-accent-soft), rgba(59, 130, 246, 0.14)) !important;
+    [data-draco="sidebar-inner"] > a.active,
+    [data-draco="sidebar-inner"] > a[aria-current="page"] {
+        background: linear-gradient(135deg, var(--draco-accent-soft), rgba(59, 130, 246, 0.16)) !important;
         color: #ffffff !important;
-        border-color: var(--draco-border-hover) !important;
-        box-shadow: 0 0 18px rgba(139, 92, 246, 0.22) !important;
+        border-color: var(--draco-border-glow) !important;
+        box-shadow: 0 0 18px rgba(139, 92, 246, 0.25) !important;
     }
 
-    /* Main Content Offset jab Sidebar screen par ho */
-    body:has(div[class*="SubNavigation"]) section,
-    body:has(div[class*="SubNavigation"]) div[class*="PageContentBlock"] {
-        margin-left: calc(var(--draco-sidebar-w) + 28px) !important;
+    /* Shift page content beside fixed sidebar */
+    html[data-draco-has-sidebar] [data-draco="main-content"] {
+        margin-left: calc(var(--draco-sidebar-w) + 32px) !important;
         margin-right: 16px !important;
-        max-width: calc(100% - var(--draco-sidebar-w) - 44px) !important;
+        width: calc(100% - var(--draco-sidebar-w) - 48px) !important;
+        max-width: calc(100% - var(--draco-sidebar-w) - 48px) !important;
     }
 }
 
-/* === MOBILE & TABLET HORIZONTAL PILL BAR (< 1024px) === */
+/* === SIDEBAR SVG ICONS (NEBULA STYLE) === */
+[data-draco="sidebar-inner"] > a::before {
+    content: "";
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+    background-color: currentColor;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    /* Default Terminal / Console Icon */
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='4 17 10 11 4 5'/%3E%3Cline x1='12' y1='19' x2='20' y2='19'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='4 17 10 11 4 5'/%3E%3Cline x1='12' y1='19' x2='20' y2='19'/%3E%3C/svg%3E");
+}
+
+[data-draco="sidebar-inner"] > a[href*="/files"]::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpath d='M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpath d='M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z'/%3E%3C/svg%3E");
+}
+[data-draco="sidebar-inner"] > a[href*="/databases"]::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Cellipse cx='12' cy='5' rx='9' ry='3'/%3E%3Cpath d='M21 12c0 1.66-4 3-9 3s-9-1.34-9-3'/%3E%3Cpath d='M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Cellipse cx='12' cy='5' rx='9' ry='3'/%3E%3Cpath d='M21 12c0 1.66-4 3-9 3s-9-1.34-9-3'/%3E%3Cpath d='M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5'/%3E%3C/svg%3E");
+}
+[data-draco="sidebar-inner"] > a[href*="/schedules"]::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpolyline points='12 6 12 12 16 14'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpolyline points='12 6 12 12 16 14'/%3E%3C/svg%3E");
+}
+[data-draco="sidebar-inner"] > a[href*="/users"]::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpath d='M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='9' cy='7' r='4'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpath d='M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='9' cy='7' r='4'/%3E%3C/svg%3E");
+}
+[data-draco="sidebar-inner"] > a[href*="/backups"]::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpolyline points='21 8 21 21 3 21 3 8'/%3E%3Crect x='1' y='3' width='22' height='5'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpolyline points='21 8 21 21 3 21 3 8'/%3E%3Crect x='1' y='3' width='22' height='5'/%3E%3C/svg%3E");
+}
+[data-draco="sidebar-inner"] > a[href*="/network"]::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cline x1='2' y1='12' x2='22' y2='12'/%3E%3Cpath d='M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cline x1='2' y1='12' x2='22' y2='12'/%3E%3Cpath d='M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z'/%3E%3C/svg%3E");
+}
+[data-draco="sidebar-inner"] > a[href*="/startup"]::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpolygon points='5 3 19 12 5 21 5 3'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpolygon points='5 3 19 12 5 21 5 3'/%3E%3C/svg%3E");
+}
+[data-draco="sidebar-inner"] > a[href*="/settings"]::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3Cpath d='M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3Cpath d='M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z'/%3E%3C/svg%3E");
+}
+[data-draco="sidebar-inner"] > a[href*="/activity"]::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpolyline points='22 12 18 12 15 21 9 3 6 12 2 12'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpolyline points='22 12 18 12 15 21 9 3 6 12 2 12'/%3E%3C/svg%3E");
+}
+[data-draco="sidebar-inner"] > a[href*="plugin"]::before,
+[data-draco="sidebar-inner"] > a[href*="mod"]::before,
+[data-draco="sidebar-inner"] > a[href*="addon"]::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpath d='M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpath d='M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z'/%3E%3C/svg%3E");
+}
+[data-draco="sidebar-inner"] > a[href*="egg"]::before,
+[data-draco="sidebar-inner"] > a[href*="version"]::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpolygon points='12 2 2 7 12 12 22 7 12 2'/%3E%3Cpolyline points='2 17 12 22 22 17'/%3E%3Cpolyline points='2 12 12 17 22 12'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpolygon points='12 2 2 7 12 12 22 7 12 2'/%3E%3Cpolyline points='2 17 12 22 22 17'/%3E%3Cpolyline points='2 12 12 17 22 12'/%3E%3C/svg%3E");
+}
+
+/* === MOBILE HORIZONTAL NEBULA PILL BAR (< 1024px) === */
 @media (max-width: 1023px) {
-    div[class*="SubNavigation"] {
-        margin: 10px 14px 4px 14px !important;
-        padding: 6px 8px !important;
-        background: var(--draco-surface-strong) !important;
-        backdrop-filter: blur(14px) !important;
+    [data-draco="sidebar"] {
+        margin: 10px 16px 4px 16px !important;
+        padding: 8px !important;
+        background: var(--draco-surface-deep) !important;
+        backdrop-filter: blur(16px) !important;
         border: 1px solid var(--draco-border) !important;
-        border-radius: 12px !important;
+        border-radius: 14px !important;
         overflow-x: auto !important;
-        -webkit-overflow-scrolling: touch;
     }
 
-    div[class*="SubNavigation"] > div {
+    [data-draco="sidebar-inner"] {
         display: flex !important;
         flex-wrap: nowrap !important;
         gap: 6px !important;
     }
 
-    div[class*="SubNavigation"] a {
-        padding: 8px 12px !important;
-        border-radius: 8px !important;
-        border-bottom: none !important;
+    [data-draco="sidebar-inner"] > a {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 7px !important;
+        padding: 8px 13px !important;
+        border-radius: 10px !important;
+        border: 1px solid transparent !important;
+        box-shadow: none !important;
         white-space: nowrap !important;
-        font-size: 0.85rem !important;
+        color: var(--draco-muted) !important;
     }
 
-    div[class*="SubNavigation"] a.active,
-    div[class*="SubNavigation"] a[aria-current="page"] {
+    [data-draco="sidebar-inner"] > a.active {
         background: var(--draco-accent-soft) !important;
         color: #ffffff !important;
-        border: 1px solid var(--draco-border-hover) !important;
+        border-color: var(--draco-border-glow) !important;
     }
 }
 
-/* === CARDS, SERVER ROWS, MOD & PLUGIN BOXES === */
-a[class*="ServerRow"],
-div[class*="GreyRowBox"],
-div[class*="TitledGreyBox"],
-div[class*="ContentBox"],
-.bg-neutral-700,
-.bg-neutral-800,
-.bg-gray-700,
-.bg-gray-800 {
+/* === GLASS CARDS, SERVER ROWS & STAT BLOCKS === */
+[data-draco="server-card"],
+[data-draco="panel-card"] {
     background: var(--draco-surface) !important;
-    backdrop-filter: blur(14px) !important;
-    -webkit-backdrop-filter: blur(14px) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
     border: 1px solid var(--draco-border) !important;
     border-radius: var(--draco-radius) !important;
-    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.28) !important;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.34) !important;
     transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease !important;
 }
 
-a[class*="ServerRow"]:hover,
-div[class*="GreyRowBox"]:hover {
-    border-color: var(--draco-border-hover) !important;
-    box-shadow: 0 8px 28px var(--draco-accent-glow) !important;
+[data-draco="server-card"]:hover {
+    border-color: var(--draco-border-glow) !important;
+    box-shadow: 0 10px 30px var(--draco-accent-glow) !important;
     transform: translateY(-2px) !important;
 }
 
-div[class*="TitledGreyBox"] > div:first-child {
-    background: rgba(7, 9, 17, 0.55) !important;
-    border-bottom: 1px solid var(--draco-border) !important;
-    border-radius: var(--draco-radius) var(--draco-radius) 0 0 !important;
+[data-draco="panel-deep"] {
+    background: var(--draco-surface-deep) !important;
+    border-color: var(--draco-border) !important;
 }
 
-/* === CONSOLE & FILE EDITOR (HIGH READABILITY) === */
+/* === DARK NEBULA LOGIN CARD === */
+[data-draco="login-card"] {
+    background: var(--draco-surface-deep) !important;
+    backdrop-filter: blur(22px) !important;
+    border: 1px solid var(--draco-border) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.72) !important;
+    color: var(--draco-text) !important;
+}
+
+[data-draco="login-card"] label,
+[data-draco="login-card"] p,
+[data-draco="login-card"] span,
+[data-draco="login-card"] a {
+    color: var(--draco-muted) !important;
+}
+
+[data-draco="login-card"]::before {
+    content: "DRACO PANEL";
+    display: block;
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    color: var(--draco-accent);
+    margin-bottom: 14px;
+}
+
+/* === CONSOLE & CODE EDITOR === */
 .xterm-viewport,
-div[class*="Console"],
-.bg-black {
+.xterm {
     background-color: #05070e !important;
-    border-radius: 12px !important;
-}
-
-.xterm, .xterm-rows, .CodeMirror, .ace_editor, code, pre {
     font-family: 'JetBrains Mono', monospace !important;
 }
 
-.CodeMirror, .ace_editor {
-    background-color: #060811 !important;
-    border: 1px solid var(--draco-border) !important;
-    border-radius: 12px !important;
-}
-
-/* === MODALS, DIALOGS & DROPDOWNS (ZERO INVISIBLE TEXT) === */
-div[role="dialog"],
-div[class*="Modal"],
-div[class*="Dialog"] {
-    background: var(--draco-surface-solid) !important;
-    border: 1px solid var(--draco-border) !important;
-    border-radius: 16px !important;
-    color: var(--draco-text) !important;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.72) !important;
-}
-
-div[role="menu"],
-ul[role="listbox"] {
-    background: #0d1220 !important;
-    border: 1px solid var(--draco-border) !important;
-    border-radius: 12px !important;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6) !important;
-}
-
-/* === INPUTS, SEARCH BARS & SELECTS === */
+/* === INPUTS & PRIMARY BUTTONS === */
 input:not([type="checkbox"]):not([type="radio"]),
 textarea,
 select {
-    background-color: var(--draco-input) !important;
+    background-color: rgba(7, 10, 19, 0.9) !important;
     border: 1px solid var(--draco-border) !important;
     color: var(--draco-text) !important;
     border-radius: 10px !important;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
 }
 
 input:focus, textarea:focus, select:focus {
@@ -275,66 +331,19 @@ input:focus, textarea:focus, select:focus {
     outline: none !important;
 }
 
-/* === BUTTONS (Status/Danger Colors Preserved) === */
-button[type="submit"],
-.bg-primary-500,
-.bg-primary-600,
-.bg-blue-600,
-.bg-cyan-600 {
+button[type="submit"] {
     background: linear-gradient(135deg, var(--draco-accent), var(--draco-accent-2)) !important;
     border: none !important;
     color: #ffffff !important;
     font-weight: 600 !important;
     border-radius: 10px !important;
-    box-shadow: 0 4px 16px var(--draco-accent-glow) !important;
-    transition: transform 0.15s ease, filter 0.15s ease !important;
+    box-shadow: 0 4px 18px var(--draco-accent-glow) !important;
 }
 
-button[type="submit"]:hover,
-.bg-primary-500:hover,
-.bg-blue-600:hover {
-    filter: brightness(1.12) !important;
-    transform: translateY(-1px) !important;
-}
-
-/* === LOGIN PAGE WITH DRACO BRANDING === */
-div[class*="LoginFormContainer"] {
-    position: relative;
-    background: var(--draco-surface-strong) !important;
-    backdrop-filter: blur(22px) !important;
-    border: 1px solid var(--draco-border) !important;
-    border-radius: 20px !important;
-    box-shadow: 0 22px 60px rgba(0, 0, 0, 0.68) !important;
-    padding: 32px 28px !important;
-}
-
-div[class*="LoginFormContainer"]::before {
-    content: "DRACO PANEL";
-    display: block;
-    text-align: center;
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.24em;
-    color: var(--draco-accent);
-    margin-bottom: 12px;
-}
-
-/* === SCROLLBAR & REDUCED MOTION === */
-::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-}
-::-webkit-scrollbar-track {
-    background: var(--draco-bg);
-}
+/* === SLIM SCROLLBAR === */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--draco-bg); }
 ::-webkit-scrollbar-thumb {
     background: linear-gradient(180deg, var(--draco-accent), var(--draco-accent-2));
     border-radius: 10px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-        transition: none !important;
-        animation: none !important;
-    }
 }
