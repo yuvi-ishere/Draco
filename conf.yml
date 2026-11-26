@@ -1,19 +1,19 @@
 info:
   name: "Draco"
   identifier: "draco"
-  description: "Draco Nebula-inspired full glass theme with matching Admin Panel"
+  description: "Draco v3 — Full Customizable Nebula/Arix Theme with Live Editor"
   flags: ""
-  version: "1.0.0"
+  version: "3.0.0"
   target: "beta-2026-08"
   author: "Draco"
   icon: ""
   website: ""
 
+admin:
+  view: "admin/view.blade.php"
+  controller: "admin/controller.php"
+  wrapper: "admin/wrapper.blade.php"
+
 dashboard:
   css: "dashboard/dashboard.css"
   wrapper: "dashboard/wrapper.blade.php"
-
-admin:
-  view: "admin/view.blade.php"
-  wrapper: "admin/wrapper.blade.php"
-
