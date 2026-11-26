@@ -1,0 +1,17 @@
+info:
+  name: "Draco"
+  identifier: "draco"
+  description: "Draco Nebula-inspired full glass theme with matching Admin Panel"
+  flags: ""
+  version: "1.0.0"
+  target: "beta-2025-03"
+  author: "Draco"
+  icon: ""
+  website: ""
+
+dashboard:
+  css: "dashboard/dashboard.css"
+  wrapper: "dashboard/wrapper.blade.php"
+
+admin:
+  wrapper: "admin/wrapper.blade.php"
