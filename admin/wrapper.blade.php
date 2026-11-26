@@ -6,10 +6,13 @@
         'card_color' => '#14182e', 'text_color' => '#f3f4f6', 'muted_color' => '#94a3b8',
         'sync_admin' => 1,
     ];
-    $draco = $dracoDefaults;
+    $draco =$dracoDefaults;
     try {
         $raw = app(\Pterodactyl\Contracts\Repository\SettingsRepositoryInterface::class)->get('draco::config');
-        if (is_string($raw)) { $draco = array_merge($dracoDefaults, json_decode($raw, true) ?: []); }
+        if (is_string($raw)) {
+            $decoded = json_decode($raw, true);
+            if (is_array($decoded)) {$draco = array_merge($dracoDefaults,$decoded); }
+        }
     } catch (\Throwable $e) {}
 
     $toRgb = function ($hex) {
@@ -18,6 +21,7 @@
         return hexdec(substr($h,0,2)).', '.hexdec(substr($h,2,2)).', '.hexdec(substr($h,4,2));
     };
     $op = round(max(20, min(100, (int)$draco['card_opacity'])) / 100, 2);
+    $dim = round(max(0, min(95, (int)$draco['bg_dim'])) / 100, 2);
 @endphp
 
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -40,7 +44,7 @@
 html, body, .wrapper, .content-wrapper, .right-side {
     background-color: var(--da-bg) !important;
     background-image:
-        {!! $draco['bg_url'] ? "linear-gradient(rgba(5,7,14,".(round((int)$draco['bg_dim']/100,2))."), rgba(5,7,14,".(round((int)$draco['bg_dim']/100,2)).")), url('".e($draco['bg_url'])."')" : "radial-gradient(circle at 12% 14%, rgba(var(--da-accent-rgb),0.20), transparent 42%), radial-gradient(circle at 88% 85%, rgba(59,130,246,0.14), transparent 44%)" !!} !important;
+        {!! $draco['bg_url'] ? "linear-gradient(rgba(5,7,14,{$dim}), rgba(5,7,14,{$dim})), url('".e($draco['bg_url'])."')" : "radial-gradient(circle at 12% 14%, rgba(var(--da-accent-rgb),0.20), transparent 42%), radial-gradient(circle at 88% 85%, rgba(59,130,246,0.14), transparent 44%)" !!} !important;
     background-size: cover !important;
     background-attachment: fixed !important;
     color: var(--da-text) !important;
@@ -99,3 +103,49 @@ html, body, .wrapper, .content-wrapper, .right-side {
 }
 </style>
 @endif
+
+<script>
+(function () {
+    function injectEditThemeIntoBasicAdmin() {
+        if (document.getElementById('draco-basic-admin-edit-theme')) return;
+        var sidebar = document.querySelector('ul.sidebar-menu');
+        if (!sidebar) return;
+
+        // Locate "Application API" inside BASIC ADMINISTRATION
+        var apiLink = sidebar.querySelector('a[href$="/admin/api"]');
+        if (!apiLink) {
+            var links = sidebar.querySelectorAll('li > a');
+            for (var i = 0; i < links.length; i++) {
+                var txt = (links[i].textContent || '').trim().toLowerCase();
+                var href = (links[i].getAttribute('href') || '').toLowerCase();
+                if (txt.indexOf('application api') !== -1 || href.indexOf('/admin/api') !== -1) {
+                    apiLink = links[i];
+                    break;
+                }
+            }
+        }
+        if (!apiLink || !apiLink.parentElement) return;
+
+        var isDracoPage = window.location.pathname.indexOf('/admin/extensions/draco') === 0;
+        var li = document.createElement('li');
+        li.id = 'draco-basic-admin-edit-theme';
+
+        if (isDracoPage) {
+            var activeItems = sidebar.querySelectorAll('li.active');
+            for (var j = 0; j < activeItems.length; j++) {
+                activeItems[j].classList.remove('active');
+            }
+            li.classList.add('active');
+        }
+
+        li.innerHTML = '<a href="/admin/extensions/draco"><i class="fa fa-paint-brush"></i> <span>Edit Theme</span></a>';
+        apiLink.parentElement.insertAdjacentElement('afterend', li);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', injectEditThemeIntoBasicAdmin);
+    } else {
+        injectEditThemeIntoBasicAdmin();
+    }
+})();
+</script>
